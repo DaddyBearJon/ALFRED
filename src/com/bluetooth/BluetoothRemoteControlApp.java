@@ -51,7 +51,7 @@ public class BluetoothRemoteControlApp extends Application
 	// Time between sending the idle filler to confirm communication, must be smaller than the timeout constant.
 	private final int minCommInterval = 900;
 	// Time after which the communication is deemed dead
-	private final int timeout = 3000;
+	private final int timeout = 30000;
 	private long lastComm;
 
 	// Member fields

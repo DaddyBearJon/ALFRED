@@ -17,7 +17,7 @@ void setup()
 {
   pinMode(LED, OUTPUT);
   // the bluetooth dongle communicates at 9600 baud only
-  Serial.begin(9600);
+  Serial1.begin(115200);
   // set up timeout timer on timer2 in case of lost connection
   // initialize counter
   TCNT2 = 0;
@@ -31,18 +31,18 @@ void setup()
 
 void loop()
 {
-  if(Serial.available() > 0)
+  if(Serial1.available() > 0)
   {
     digitalWrite(LED, HIGH);
     connected = true;
     // clear timeout
     com = timerCounter;
 
-    Serial.readBytesUntil('\n', serialData, 31);
+    Serial1.readBytesUntil('\n', serialData, 31);
     switch(serialData[0])
     {
     case 0:
-      Serial.println(0);
+      Serial1.println(0);
       break;
     case 'a':
       // use as a small and slow oscilloscope
@@ -50,14 +50,14 @@ void loop()
       if(parseCommand(serialData, &pin, 1) && pin >= 0 && pin <= 7)
       {
         // stop loop by sending something to the robot
-        while(!Serial.available() && connected)
+        while(!Serial1.available() && connected)
         {
-          Serial.println(analogRead(pin));
+          Serial1.println(analogRead(pin));
         }
       }
       else
       {
-        Serial.println("Error while setting ADC pin");
+        Serial1.println("Error while setting ADC pin");
       }
       break;
     case 's':
@@ -66,25 +66,25 @@ void loop()
       if(parseCommand(serialData, speed, 2))
       {
         setSpeed(speed[0], speed[1]);
-        Serial.println("New speed set");
+        Serial1.println("New speed set");
       }
       else
       {
-        Serial.println("Error while setting new speed");
+        Serial1.println("Error while setting new speed");
       }
       break;
     case 'i':
       // inform about robot
-      Serial.println("Zygote 1.0");
+      Serial1.println("ALFRED 1.0");
       break;
     case 'r':
       // quickly stop
       reset();
-      Serial.println("Robot reset");
+      Serial1.println("Robot reset");
       break;
     default:
       // inform user of non existing command
-      Serial.println("Command not recognised");
+      Serial1.println("Command not recognised");
     }
 
     // clear serialData array

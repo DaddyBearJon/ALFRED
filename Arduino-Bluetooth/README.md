@@ -10,9 +10,9 @@ The way Blueberry talks to Android is simple: Bluetooth is completely transparen
 
 * Reset with `r`, this stops the robot.
 
-* Infromation: `i`, this sends back whatever it was told to send back, but essentially it's purpose is to send the robot's name and version.
+* Information: `i`, this sends back whatever it was told to send back, but essentially it's purpose is to send the robot's name and version.
 
-* ADC converstion with `a,pin`, `pin` is the analog pin from 0 to 7. Beware of this one, data will be sent as fast as possible, it must be handleded at that speed as well.
+* ADC conversion with `a,pin`, `pin` is the analogue pin from 0 to 7. Beware of this one, data will be sent as fast as possible, it must be handleded at that speed as well.
 
 * A function that should remain hidden is the polling function: Blueberry polls every 900 milliseconds when no other data is transmitted and the robot checks that the link is live by checking data transfer every second. Blueberry simply sends a `0` and the device sends a `0` back to confrm its existence.
 
