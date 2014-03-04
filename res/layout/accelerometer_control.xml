@@ -64,7 +64,7 @@
         android:layout_height="0dip"
         android:layout_weight="1" >
 
-        <com.bluetooth.activities.AccelerometerSurfaceView
+        <com.thedysongang.bluetooth.activities.AccelerometerSurfaceView
             android:id="@+id/svVector"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
