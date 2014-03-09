@@ -85,8 +85,8 @@ public class LineFollower extends BluetoothActivity implements SurfaceHolder.Cal
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.line_follower);
 
-		tvWheelLeft = (TextView) findViewById(R.id.tvWheelLeft);
-		tvWheelRight = (TextView) findViewById(R.id.tvWheelRight);
+		tvWheelLeft = (TextView) findViewById(R.id.tvMoveLeft);
+		tvWheelRight = (TextView) findViewById(R.id.tvMoveRight);
 
 		final Button bToggle = (Button) findViewById(R.id.bToggle);
 		bToggle.setOnClickListener(new OnClickListener()

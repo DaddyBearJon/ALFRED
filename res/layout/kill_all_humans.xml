@@ -40,7 +40,7 @@
                 style="?android:attr/listSeparatorTextViewStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/wheelSpeeds"
+                android:text="@string/DirectionDeg"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <LinearLayout
@@ -49,7 +49,7 @@
                 android:orientation="horizontal" >
 
                 <TextView
-                    android:id="@+id/tvWheelLeft"
+                    android:id="@+id/tvMoveLeft"
                     style="@style/settingsRow"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -58,7 +58,7 @@
                     android:textAppearance="?android:attr/textAppearanceMedium" />
 
                 <TextView
-                    android:id="@+id/tvWheelRight"
+                    android:id="@+id/tvMoveRight"
                     style="@style/settingsRow"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"

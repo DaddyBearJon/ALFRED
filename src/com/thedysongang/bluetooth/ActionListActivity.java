@@ -58,7 +58,7 @@ public class ActionListActivity extends BluetoothActivity
 		activityList.add(new Action("Line Follower", "Use the phone's camera to follow a black line", "LineFollower"));
 		activityList.add(new Action("Kill All Humans", "Use face detection to run down humans", "KillAllHumans"));
 		
-		// TODO: Organize this into better categories
+		// TODO: Organise this into better categories
 		// Miscellaneous
 		activityList.add(new Action("Send Data", "Send custom commands to robot", "SendData"));
 		// Maybe put this one in the API

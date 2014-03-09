@@ -56,14 +56,14 @@ public final class R {
         public static final int tvIP=0x7f080027;
         public static final int tvInfo=0x7f080013;
         public static final int tvMaxSpeed=0x7f08001e;
+        public static final int tvMoveLeft=0x7f080002;
+        public static final int tvMoveRight=0x7f080003;
         public static final int tvName=0x7f080009;
         public static final int tvP=0x7f080018;
         public static final int tvPairedDevices=0x7f08000c;
         public static final int tvSignal=0x7f08000a;
         public static final int tvTouchX=0x7f080023;
         public static final int tvTouchY=0x7f080024;
-        public static final int tvWheelLeft=0x7f080002;
-        public static final int tvWheelRight=0x7f080003;
     }
     public static final class layout {
         public static final int accelerometer_control=0x7f030000;
@@ -98,6 +98,7 @@ public final class R {
         public static final int there_you_are=0x7f04000b;
     }
     public static final class string {
+        public static final int DirectionDeg=0x7f050003;
         public static final int accelerometer=0x7f050004;
         public static final int app_name=0x7f050000;
         public static final int availableDevices=0x7f05000c;
@@ -125,7 +126,6 @@ public final class R {
         public static final int stop=0x7f050009;
         public static final int threshold=0x7f050007;
         public static final int touchPosition=0x7f050015;
-        public static final int wheelSpeeds=0x7f050003;
     }
     public static final class style {
         public static final int listItem=0x7f060000;

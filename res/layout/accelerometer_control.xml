@@ -22,7 +22,7 @@
             android:layout_width="0dip"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/wheelSpeeds" />
+            android:text="@string/DirectionDeg" />
     </LinearLayout>
 
     <LinearLayout
@@ -45,14 +45,14 @@
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
-            android:id="@+id/tvWheelLeft"
+            android:id="@+id/tvMoveLeft"
             android:layout_width="0dip"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
-            android:id="@+id/tvWheelRight"
+            android:id="@+id/tvMoveRight"
             android:layout_width="0dip"
             android:layout_height="wrap_content"
             android:layout_weight="1"

@@ -53,9 +53,9 @@ public class TouchControl extends BluetoothActivity implements OnTouchListener, 
 		tvTouchX.setText("X: 0");
 		tvTouchY = (TextView) findViewById(R.id.tvTouchY);
 		tvTouchY.setText("Y: 0");
-		tvWheelLeft = (TextView) findViewById(R.id.tvWheelLeft);
+		tvWheelLeft = (TextView) findViewById(R.id.tvMoveLeft);
 		tvWheelLeft.setText("L: 0");
-		tvWheelRight = (TextView) findViewById(R.id.tvWheelRight);
+		tvWheelRight = (TextView) findViewById(R.id.tvMoveRight);
 		tvWheelRight.setText("R: 0");
 
 		svTouchArea = (SurfaceView) findViewById(R.id.svTouchArea);

@@ -41,7 +41,7 @@ public class AccelerometerControl extends BluetoothActivity implements SensorEve
 	private SensorManager sensorManager;
 	private Sensor accelerometer;
 	private boolean enabled = false;
-	private TextView tvAccX, tvAccY, tvWheelLeft, tvWheelRight;
+	private TextView tvAccX, tvAccY, tvMoveLeft, tvMoveRight;
 	private float lastX = 0, lastY = 0, accJitterMargin = 0.1f;
 	private int wheelLeft, wheelRight;
 
@@ -56,8 +56,8 @@ public class AccelerometerControl extends BluetoothActivity implements SensorEve
 		tvAccY = (TextView) findViewById(R.id.tvAccY);
 
 		// Show wheel speeds
-		tvWheelLeft = (TextView) findViewById(R.id.tvWheelLeft);
-		tvWheelRight = (TextView) findViewById(R.id.tvWheelRight);
+		tvMoveLeft = (TextView) findViewById(R.id.tvMoveLeft);
+		tvMoveRight = (TextView) findViewById(R.id.tvMoveRight);
 
 		final Button bToggle = (Button) findViewById(R.id.bToggle);
 		bToggle.setOnClickListener(new OnClickListener()
@@ -187,8 +187,8 @@ public class AccelerometerControl extends BluetoothActivity implements SensorEve
 		}
 
 		// Show wheel speeds
-		tvWheelLeft.setText("L: " + Integer.toString(wheelLeft));
-		tvWheelRight.setText("R: " + Integer.toString(wheelRight));
+		tvMoveLeft.setText("L: " + Integer.toString(wheelLeft));
+		tvMoveRight.setText("R: " + Integer.toString(wheelRight));
 
 		svAccelerometer.setVector(lastX, lastY);
 

@@ -99,8 +99,8 @@ public class KillAllHumans extends BluetoothActivity implements SurfaceHolder.Ca
 		svOverlay = (SurfaceView) findViewById(R.id.svOverlay);
 
 		tvInfo = (TextView) findViewById(R.id.tvInfo);
-		tvWheelLeft = (TextView) findViewById(R.id.tvWheelLeft);
-		tvWheelRight = (TextView) findViewById(R.id.tvWheelRight);
+		tvWheelLeft = (TextView) findViewById(R.id.tvMoveLeft);
+		tvWheelRight = (TextView) findViewById(R.id.tvMoveRight);
 
 		bToggle = (Button) findViewById(R.id.bToggle);
 		bToggle.setOnClickListener(new OnClickListener()

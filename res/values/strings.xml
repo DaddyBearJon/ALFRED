@@ -4,7 +4,7 @@
     <string name="app_name">BTBot</string>
     <string name="search">Search for devices</string>
     <string name="searching">Searching&#8230;</string>
-    <string name="wheelSpeeds">Wheel speeds</string>
+    <string name="DirectionDeg">Direction</string>
     <string name="accelerometer">Accelerometer</string>
     <string name="commandHint">Enter a command</string>
     <string name="send">Send</string>
