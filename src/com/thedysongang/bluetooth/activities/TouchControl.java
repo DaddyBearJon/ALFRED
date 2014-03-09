@@ -34,13 +34,13 @@ import android.widget.TextView;
 
 public class TouchControl extends BluetoothActivity implements OnTouchListener, SurfaceHolder.Callback
 {
-	private TextView tvTouchX, tvTouchY, tvWheelLeft, tvWheelRight;
+	private TextView tvTouchX, tvTouchY, tvMoveLeft, tvMoveRight;
 	private Button bToggle;
 	private SurfaceView svTouchArea;
 	private SurfaceHolder svTouchAreaHolder;
 	private Canvas canvas;
 	private Bitmap joystick;
-	private int touchX, touchY, wheelLeft, wheelRight;
+	private int touchX, touchY, moveLeft, moveRight;
 	private boolean running;
 
 	@Override
@@ -53,10 +53,10 @@ public class TouchControl extends BluetoothActivity implements OnTouchListener, 
 		tvTouchX.setText("X: 0");
 		tvTouchY = (TextView) findViewById(R.id.tvTouchY);
 		tvTouchY.setText("Y: 0");
-		tvWheelLeft = (TextView) findViewById(R.id.tvMoveLeft);
-		tvWheelLeft.setText("L: 0");
-		tvWheelRight = (TextView) findViewById(R.id.tvMoveRight);
-		tvWheelRight.setText("R: 0");
+		tvMoveLeft = (TextView) findViewById(R.id.tvMoveLeft);
+		tvMoveLeft.setText("L: 0");
+		tvMoveRight = (TextView) findViewById(R.id.tvMoveRight);
+		tvMoveRight.setText("R: 0");
 
 		svTouchArea = (SurfaceView) findViewById(R.id.svTouchArea);
 		// Needed to make the SurfaceView background transparent
@@ -74,8 +74,8 @@ public class TouchControl extends BluetoothActivity implements OnTouchListener, 
 	@Override
 	protected void onResume()
 	{
-		wheelLeft = 0;
-		wheelRight = 0;
+		moveLeft = 0;
+		moveRight = 0;
 		super.onResume();
 	}
 
@@ -87,8 +87,8 @@ public class TouchControl extends BluetoothActivity implements OnTouchListener, 
 			// Stop robot
 			touchX = 0;
 			touchY = 0;
-			wheelLeft = 0;
-			wheelRight = 0;
+			moveLeft = 0;
+			moveRight = 0;
 			drawJoystick(v.getWidth() / 2, v.getHeight() / 2);
 			write("s,0,0");
 			break;
@@ -99,38 +99,38 @@ public class TouchControl extends BluetoothActivity implements OnTouchListener, 
 
 			drawJoystick(event.getX(), event.getY());
 
-			wheelLeft = touchY + touchX;
-			wheelRight = touchY - touchX;
+			moveLeft = touchY + touchX;
+			moveRight = touchY - touchX;
 
-			if(wheelLeft > 100)
+			if(moveLeft > 100)
 			{
-				wheelLeft = 100;
+				moveLeft = 100;
 			}
-			else if(wheelLeft < -100)
+			else if(moveLeft < -100)
 			{
-				wheelLeft = -100;
+				moveLeft = -100;
 			}
 
-			if(wheelRight > 100)
+			if(moveRight > 100)
 			{
-				wheelRight = 100;
+				moveRight = 100;
 			}
-			else if(wheelRight < -100)
+			else if(moveRight < -100)
 			{
-				wheelRight = -100;
+				moveRight = -100;
 			}
 
 			if(running)
 			{
-				write("s," + wheelLeft + "," + wheelRight);
+				write("s," + moveLeft + "," + moveRight);
 			}
 			break;
 		}
 		tvTouchX.setText("X: " + touchX);
 		tvTouchY.setText("Y: " + touchY);
 
-		tvWheelLeft.setText("L: " + wheelLeft);
-		tvWheelRight.setText("R: " + wheelRight);
+		tvMoveLeft.setText("L: " + moveLeft);
+		tvMoveRight.setText("R: " + moveRight);
 		return true;
 	}
 

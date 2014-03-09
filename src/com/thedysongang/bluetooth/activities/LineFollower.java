@@ -65,7 +65,7 @@ public class LineFollower extends BluetoothActivity implements SurfaceHolder.Cal
 	private Camera camera;
 	private SurfaceView svPreview, svOverlay;
 	private SurfaceHolder previewHolder, overlayHolder;
-	private TextView tvWheelLeft, tvWheelRight;
+	private TextView tvMoveLeft, tvMoveRight;
 	private Path path;
 
 	private Boolean following = false;
@@ -75,7 +75,7 @@ public class LineFollower extends BluetoothActivity implements SurfaceHolder.Cal
 	private float pid_kp, pid_ki, pid_kd;
 
 	private float control, control_p, control_i, control_d;
-	private int wheelLeft, wheelRight, lastError;
+	private int moveLeft, moveRight, lastError;
 
 	private static byte[] previewData;
 
@@ -85,8 +85,8 @@ public class LineFollower extends BluetoothActivity implements SurfaceHolder.Cal
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.line_follower);
 
-		tvWheelLeft = (TextView) findViewById(R.id.tvMoveLeft);
-		tvWheelRight = (TextView) findViewById(R.id.tvMoveRight);
+		tvMoveLeft = (TextView) findViewById(R.id.tvMoveLeft);
+		tvMoveRight = (TextView) findViewById(R.id.tvMoveRight);
 
 		final Button bToggle = (Button) findViewById(R.id.bToggle);
 		bToggle.setOnClickListener(new OnClickListener()
@@ -110,8 +110,8 @@ public class LineFollower extends BluetoothActivity implements SurfaceHolder.Cal
 				{
 					write("r");
 					bToggle.setText(R.string.start);
-					tvWheelLeft.setText("");
-					tvWheelRight.setText("");
+					tvMoveLeft.setText("");
+					tvMoveRight.setText("");
 				}
 			}
 		});
@@ -253,21 +253,21 @@ public class LineFollower extends BluetoothActivity implements SurfaceHolder.Cal
 
 				control = control_p + control_i + control_d;
 
-				wheelLeft = maxSpeed + (int) control;
-				wheelRight = maxSpeed - (int) control;
+				moveLeft = maxSpeed + (int) control;
+				moveRight = maxSpeed - (int) control;
 			}
 			else
 			{
-				wheelLeft = 0;
-				wheelRight = 0;
+				moveLeft = 0;
+				moveRight = 0;
 			}
 			
-			tvWheelLeft.setText("L: " + wheelLeft);
-			tvWheelRight.setText("R: " + wheelRight);
+			tvMoveLeft.setText("L: " + moveLeft);
+			tvMoveRight.setText("R: " + moveRight);
 			
 			if(following)
 			{
-				write("s," + wheelLeft + "," + wheelRight);
+				write("s," + moveLeft + "," + moveRight);
 			}
 		}
 		else if(msg.what == BluetoothRemoteControlApp.MSG_2)

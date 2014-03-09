@@ -63,7 +63,7 @@ public class KillAllHumans extends BluetoothActivity implements SurfaceHolder.Ca
 	private Camera camera;
 	private SurfaceView svPreview, svOverlay;
 	private SurfaceHolder previewHolder, overlayHolder;
-	private TextView tvInfo, tvWheelLeft, tvWheelRight;
+	private TextView tvInfo, tvMoveLeft, tvMoveRight;
 	private MenuItem soundMenu;
 	private Button bToggle;
 	private Paint red, textPaint;
@@ -87,7 +87,7 @@ public class KillAllHumans extends BluetoothActivity implements SurfaceHolder.Ca
 
 	private float pid_kp, pid_ki, pid_kd;
 	private float control, control_p, control_i, control_d;
-	private int i, left, top, error, wheelLeft, wheelRight, lastError;
+	private int i, left, top, error, moveLeft, moveRight, lastError;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState)
@@ -99,8 +99,8 @@ public class KillAllHumans extends BluetoothActivity implements SurfaceHolder.Ca
 		svOverlay = (SurfaceView) findViewById(R.id.svOverlay);
 
 		tvInfo = (TextView) findViewById(R.id.tvInfo);
-		tvWheelLeft = (TextView) findViewById(R.id.tvMoveLeft);
-		tvWheelRight = (TextView) findViewById(R.id.tvMoveRight);
+		tvMoveLeft = (TextView) findViewById(R.id.tvMoveLeft);
+		tvMoveRight = (TextView) findViewById(R.id.tvMoveRight);
 
 		bToggle = (Button) findViewById(R.id.bToggle);
 		bToggle.setOnClickListener(new OnClickListener()
@@ -276,12 +276,12 @@ public class KillAllHumans extends BluetoothActivity implements SurfaceHolder.Ca
 
 						control = control_p + control_i + control_d;
 
-						wheelLeft = maxSpeed + (int) control;
-						wheelRight = maxSpeed - (int) control;
+						moveLeft = maxSpeed + (int) control;
+						moveRight = maxSpeed - (int) control;
 
-						write("s," + wheelLeft + "," + wheelRight);
-						tvWheelLeft.setText("L: " + wheelLeft);
-						tvWheelRight.setText("R: " + wheelRight);
+						write("s," + moveLeft + "," + moveRight);
+						tvMoveLeft.setText("L: " + moveLeft);
+						tvMoveRight.setText("R: " + moveRight);
 					}
 				}
 			}

@@ -43,7 +43,7 @@ public class AccelerometerControl extends BluetoothActivity implements SensorEve
 	private boolean enabled = false;
 	private TextView tvAccX, tvAccY, tvMoveLeft, tvMoveRight;
 	private float lastX = 0, lastY = 0, accJitterMargin = 0.1f;
-	private int wheelLeft, wheelRight;
+	private int moveLeft, moveRight;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -90,8 +90,8 @@ public class AccelerometerControl extends BluetoothActivity implements SensorEve
 		lastX = 0;
 		lastY = 0;
 		accJitterMargin = 0.1f;
-		wheelLeft = 0;
-		wheelRight = 0;
+		moveLeft = 0;
+		moveRight = 0;
 
 		sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
 		accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
@@ -164,38 +164,38 @@ public class AccelerometerControl extends BluetoothActivity implements SensorEve
 		}
 
 		// Only change speed by multiples of 5
-		wheelLeft = (int) (-5 * (Math.round(100 * lastY / 5) / 5) + (-5 * (Math.round(100 * lastX / 5) / 5)));
-		wheelRight = (int) (-5 * (Math.round(100 * lastY / 5) / 5) - (-5 * (Math.round(100 * lastX / 5) / 5)));
+		moveLeft = (int) (-5 * (Math.round(100 * lastY / 5) / 5) + (-5 * (Math.round(100 * lastX / 5) / 5)));
+		moveRight = (int) (-5 * (Math.round(100 * lastY / 5) / 5) - (-5 * (Math.round(100 * lastX / 5) / 5)));
 
 		// Do not allow speed values over 100 or under -100
-		if(wheelLeft > 100)
+		if(moveLeft > 100)
 		{
-			wheelLeft = 100;
+			moveLeft = 100;
 		}
-		else if(wheelLeft < -100)
+		else if(moveLeft < -100)
 		{
-			wheelLeft = -100;
+			moveLeft = -100;
 		}
 
-		if(wheelRight > 100)
+		if(moveRight > 100)
 		{
-			wheelRight = 100;
+			moveRight = 100;
 		}
-		else if(wheelRight < -100)
+		else if(moveRight < -100)
 		{
-			wheelRight = -100;
+			moveRight = -100;
 		}
 
 		// Show wheel speeds
-		tvMoveLeft.setText("L: " + Integer.toString(wheelLeft));
-		tvMoveRight.setText("R: " + Integer.toString(wheelRight));
+		tvMoveLeft.setText("L: " + Integer.toString(moveLeft));
+		tvMoveRight.setText("R: " + Integer.toString(moveRight));
 
 		svAccelerometer.setVector(lastX, lastY);
 
 		// Send data to robot
 		if(enabled)
 		{
-			write("s," + wheelLeft + "," + wheelRight);
+			write("s," + moveLeft + "," + moveRight);
 		}
 		else
 		{
