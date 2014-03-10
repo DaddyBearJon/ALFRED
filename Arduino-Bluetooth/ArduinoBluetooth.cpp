@@ -2,15 +2,17 @@
  * Title:        Bluetooth Remote Control
  * Description:  This program is intented to work with a connected
  *               Bluetooth dongle to the robot and an Android phone
- *               running Blueberry application
- * Author:       Karl Kangur <karl.kangur@gmail.com>
+ *               running ALFRED application
+ * Author:       Jon Dyson <jon@thedysongang.com>
  * Version:      1.0
  * Website:      github
  */
 #define LED PC(2)
 
 char serialData[32];
-byte com = 0, error = 0, timerCounter = 0;
+byte com = 0;
+byte error = 0;
+byte timerCounter = 0;
 boolean connected;
 
 void setup()
@@ -24,7 +26,7 @@ void setup()
   // set prescaler to 256
   TCCR2 = 0x06;
   // enable overflow interrupt
-  TIMSK |= (1 << TOIE2);
+  TIMSK |= (1 << TOIE2);  // << = bitwise shift left
   // enable global interrupts
   asm("SEI");
 }
@@ -160,8 +162,8 @@ boolean parseCommand(char* command, int* returnValues, byte returnNumber)
 
 ISR(TIMER2_OVF_vect)
 {
-  // 8e6Hz / 256 / 256 / 122 = 1Hz
-  if(timerCounter++ < 122)
+  // 8e7Hz / 256 / 256 / 1220 = 1Hz
+  if(timerCounter++ < 1220)
   {
     return;
   }
@@ -178,7 +180,7 @@ ISR(TIMER2_OVF_vect)
   timerCounter = 0;
 }
 
-// set motor speed for both wheels, uses timer1
+// set motor speed for both wheels, uses timer1 THIS NEEDS CHANGING
 void setSpeed(int left, int right)
 {
   // PD4-7 as output
