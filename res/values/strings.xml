@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <string name="app_name">BTBot</string>
+    <string name="app_name">ALFRED</string>
     <string name="search">Search for devices</string>
     <string name="searching">Searching&#8230;</string>
     <string name="DirectionDeg">Direction</string>
