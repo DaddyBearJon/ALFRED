@@ -43,27 +43,13 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textAppearance="?android:attr/textAppearanceMedium" />
-
         <TextView
-            android:id="@+id/tvMoveLeft"
-            android:layout_width="0dip"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-
-        <TextView
-            android:id="@+id/tvMoveRight"
+            android:id="@+id/tvDegrees"
             android:layout_width="0dip"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textAppearance="?android:attr/textAppearanceMedium" />
     </LinearLayout>
-
-    <SurfaceView
-        android:id="@+id/svTouchArea"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
 
     <Button
         android:id="@+id/bToggle"
@@ -71,5 +57,10 @@
         android:layout_height="wrap_content"
         android:onClick="buttonClick"
         android:text="@string/start" />
+
+    <SurfaceView
+        android:id="@+id/svTouchArea"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </LinearLayout>

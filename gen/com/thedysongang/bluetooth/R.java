@@ -23,11 +23,11 @@ public final class R {
         public static final int bCancel=0x7f08001f;
         public static final int bFindDevices=0x7f080010;
         public static final int bOk=0x7f080020;
-        public static final int bSpeak=0x7f080026;
+        public static final int bSpeak=0x7f080027;
         public static final int bToggle=0x7f080005;
         public static final int etCommand=0x7f080022;
-        public static final int iSettings=0x7f080028;
-        public static final int iSound=0x7f080029;
+        public static final int iSettings=0x7f080029;
+        public static final int iSound=0x7f08002a;
         public static final int llData=0x7f080015;
         public static final int llTitle=0x7f080014;
         public static final int lvActionList=0x7f080008;
@@ -40,7 +40,7 @@ public final class R {
         public static final int sbThreshold=0x7f080016;
         public static final int svOverlay=0x7f080012;
         public static final int svPreview=0x7f080011;
-        public static final int svTouchArea=0x7f080025;
+        public static final int svTouchArea=0x7f080026;
         public static final int svVector=0x7f080004;
         public static final int tvAccX=0x7f080000;
         public static final int tvAccY=0x7f080001;
@@ -49,9 +49,10 @@ public final class R {
         public static final int tvAvailableDevices=0x7f08000e;
         public static final int tvD=0x7f08001c;
         public static final int tvData=0x7f080021;
+        public static final int tvDegrees=0x7f080025;
         public static final int tvDescription=0x7f080007;
         public static final int tvI=0x7f08001a;
-        public static final int tvIP=0x7f080027;
+        public static final int tvIP=0x7f080028;
         public static final int tvInfo=0x7f080013;
         public static final int tvMaxSpeed=0x7f08001e;
         public static final int tvMoveLeft=0x7f080002;
@@ -96,6 +97,7 @@ public final class R {
         public static final int there_you_are=0x7f04000b;
     }
     public static final class string {
+        public static final int Degrees=0x7f05001c;
         public static final int DirectionDeg=0x7f050003;
         public static final int accelerometer=0x7f050004;
         public static final int app_name=0x7f050000;

@@ -34,13 +34,14 @@ import android.widget.TextView;
 
 public class TouchControl extends BluetoothActivity implements OnTouchListener, SurfaceHolder.Callback
 {
-	private TextView tvTouchX, tvTouchY, tvMoveLeft, tvMoveRight;
+	private TextView tvTouchX, tvTouchY, tvDegrees;
 	private Button bToggle;
 	private SurfaceView svTouchArea;
 	private SurfaceHolder svTouchAreaHolder;
 	private Canvas canvas;
 	private Bitmap joystick;
-	private int touchX, touchY, moveLeft, moveRight;
+	private int touchX, touchY, Degrees;
+	private float theta, thetaDeg;
 	private boolean running;
 
 	@Override
@@ -49,14 +50,13 @@ public class TouchControl extends BluetoothActivity implements OnTouchListener, 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.touch_control);
 
-		tvTouchX = (TextView) findViewById(R.id.tvTouchX);
+		tvTouchX = (TextView) findViewById(R.id.tvTouchX); 
 		tvTouchX.setText("X: 0");
-		tvTouchY = (TextView) findViewById(R.id.tvTouchY);
+		tvTouchY = (TextView) findViewById(R.id.tvTouchY); 
 		tvTouchY.setText("Y: 0");
-		tvMoveLeft = (TextView) findViewById(R.id.tvMoveLeft);
-		tvMoveLeft.setText("L: 0");
-		tvMoveRight = (TextView) findViewById(R.id.tvMoveRight);
-		tvMoveRight.setText("R: 0");
+		tvDegrees = (TextView) findViewById(R.id.tvDegrees);
+		tvDegrees.setText("0" + "°");
+		 
 
 		svTouchArea = (SurfaceView) findViewById(R.id.svTouchArea);
 		// Needed to make the SurfaceView background transparent
@@ -74,8 +74,9 @@ public class TouchControl extends BluetoothActivity implements OnTouchListener, 
 	@Override
 	protected void onResume()
 	{
-		moveLeft = 0;
-		moveRight = 0;
+		theta = 0;
+		thetaDeg = 0;
+		Degrees = 0;
 		super.onResume();
 	}
 
@@ -87,8 +88,9 @@ public class TouchControl extends BluetoothActivity implements OnTouchListener, 
 			// Stop robot
 			touchX = 0;
 			touchY = 0;
-			moveLeft = 0;
-			moveRight = 0;
+			theta = 0;
+			thetaDeg = 0;
+			Degrees = 0;
 			drawJoystick(v.getWidth() / 2, v.getHeight() / 2);
 			write("s,0,0");
 			break;
@@ -96,10 +98,20 @@ public class TouchControl extends BluetoothActivity implements OnTouchListener, 
 		case MotionEvent.ACTION_MOVE:
 			touchX = (int) (100 * (2 * (float) event.getX() / v.getWidth() - 1));
 			touchY = (int) (100 * (1 - 2 * (float) event.getY() / v.getHeight()));
+			
+			theta = (float) Math.atan2(touchX, touchY); // Convert Cartesian Coordinates to Radians Seems Android has X and Y from Landscape PErspective
+			thetaDeg = (float) Math.toDegrees(theta);  // Convert from Radians to Degrees
+			
+			if (thetaDeg < 0.0) // atan2 gives range of -pi to + pi, so we get -180 to + 180 we want 0 - 360
+			{
+				thetaDeg = (float) (360.0 + thetaDeg); 
+			}
+			
+			Degrees = (int) thetaDeg;
 
 			drawJoystick(event.getX(), event.getY());
 
-			moveLeft = touchY + touchX;
+	/*		moveLeft = touchY + touchX;
 			moveRight = touchY - touchX;
 
 			if(moveLeft > 100)
@@ -123,14 +135,12 @@ public class TouchControl extends BluetoothActivity implements OnTouchListener, 
 			if(running)
 			{
 				write("s," + moveLeft + "," + moveRight);
-			}
+			} */
 			break;
 		}
 		tvTouchX.setText("X: " + touchX);
 		tvTouchY.setText("Y: " + touchY);
-
-		tvMoveLeft.setText("L: " + moveLeft);
-		tvMoveRight.setText("R: " + moveRight);
+		tvDegrees.setText(Degrees + "°");
 		return true;
 	}
 

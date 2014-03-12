@@ -44,7 +44,7 @@ import android.util.Log;
  */
 public class BluetoothRemoteControlApp extends Application
 {
-	private final static String TAG = "Blueberry";
+	private final static String TAG = "ALFRED";
 	// Debug flag
 	public final static boolean D = false;
 
@@ -384,13 +384,13 @@ public class BluetoothRemoteControlApp extends Application
 					}
 
 					// Communication timed out
-					if(System.currentTimeMillis() - lastComm > timeout)
+					/*if(System.currentTimeMillis() - lastComm > timeout)
 					{
 						if(D)
 							Log.e(TAG, "Timeout");
 						disconnect();
 						break;
-					}
+					} */
 				}
 
 				// This thread should not run all the time
