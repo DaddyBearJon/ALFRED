@@ -21,7 +21,6 @@ import android.graphics.Paint;
 import android.graphics.PointF;
 import android.graphics.PorterDuff.Mode;
 import android.util.AttributeSet;
-import android.util.FloatMath;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
@@ -33,7 +32,6 @@ public class AccelerometerSurfaceView extends SurfaceView implements Runnable
 	private volatile boolean running = false;
 	private PointF speedVector = new PointF(0, 0);
 	private float mag;
-
 	private Paint paint = new Paint();
 
 	public AccelerometerSurfaceView(Context context)
@@ -61,7 +59,7 @@ public class AccelerometerSurfaceView extends SurfaceView implements Runnable
 		speedVector.y = y / 5;
 		if((mag = speedVector.x * speedVector.x + speedVector.y * speedVector.y) > 1)
 		{
-			mag = FloatMath.sqrt(mag);
+			mag = (float) Math.sqrt(mag);
 			speedVector.x /= mag;
 			speedVector.y /= mag;
 		}
@@ -94,10 +92,6 @@ public class AccelerometerSurfaceView extends SurfaceView implements Runnable
 
 	public void run()
 	{
-		paint.setStyle(Paint.Style.STROKE);
-		paint.setStrokeWidth(10);
-		paint.setStrokeCap(Paint.Cap.ROUND);
-		paint.setColor(0xffffffff);
 
 		while(running)
 		{
@@ -107,7 +101,8 @@ public class AccelerometerSurfaceView extends SurfaceView implements Runnable
 				canvas.drawColor(0, Mode.CLEAR);
 				if(mag > 0.001)
 				{
-					canvas.drawLine(this.getWidth() / 2, this.getHeight() / 2, this.getWidth() / 2 * (1 - speedVector.x), this.getHeight() / 2 + this.getWidth() / 2 * speedVector.y, paint);
+					//canvas.drawLine(this.getWidth() / 2, this.getHeight() / 2, this.getWidth() / 2 * (1 - speedVector.x), this.getHeight() / 2 + this.getWidth() / 2 * speedVector.y, paint);
+					canvas.drawBitmap(AccelerometerControl.ball, ((this.getWidth() / 2 - AccelerometerControl.ball.getWidth() / 2) * (1 - speedVector.x)), ((this.getHeight() / 2  - AccelerometerControl.ball.getHeight()) + this.getWidth() / 2 * speedVector.y), null);
 				}
 
 				surfaceHolder.unlockCanvasAndPost(canvas);

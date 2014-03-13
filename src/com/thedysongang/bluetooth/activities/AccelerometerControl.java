@@ -19,6 +19,8 @@ import com.thedysongang.bluetooth.BluetoothActivity;
 import com.thedysongang.bluetooth.R;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.PixelFormat;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -41,10 +43,10 @@ public class AccelerometerControl extends BluetoothActivity implements SensorEve
 	private SensorManager sensorManager;
 	private Sensor accelerometer;
 	private boolean enabled = false;
-	private TextView tvAccX, tvAccY, tvMoveLeft, tvMoveRight;
-	private float lastX = 0, lastY = 0, accJitterMargin = 0.1f;
+	private TextView tvAccX, tvAccY, tvAccZ, tvMoveX, tvMoveY, tvMoveZ;
+	private float lastX = 0, lastY = 0, lastZ = 0, accNoise = 0.1f;
 	private int moveLeft, moveRight;
-
+	public static Bitmap ball;
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -54,10 +56,12 @@ public class AccelerometerControl extends BluetoothActivity implements SensorEve
 		// Set up accelerometer output fields
 		tvAccX = (TextView) findViewById(R.id.tvAccX);
 		tvAccY = (TextView) findViewById(R.id.tvAccY);
+		tvAccZ = (TextView) findViewById(R.id.tvAccZ);
 
 		// Show wheel speeds
-		tvMoveLeft = (TextView) findViewById(R.id.tvMoveLeft);
-		tvMoveRight = (TextView) findViewById(R.id.tvMoveRight);
+		tvMoveX = (TextView) findViewById(R.id.tvMoveX);
+		tvMoveY = (TextView) findViewById(R.id.tvMoveY);
+		tvMoveZ = (TextView) findViewById(R.id.tvMoveZ);
 
 		final Button bToggle = (Button) findViewById(R.id.bToggle);
 		bToggle.setOnClickListener(new OnClickListener()
@@ -76,7 +80,7 @@ public class AccelerometerControl extends BluetoothActivity implements SensorEve
 				}
 			}
 		});
-
+		ball = BitmapFactory.decodeResource(getResources(), R.drawable.ball);
 		svAccelerometer = (AccelerometerSurfaceView) findViewById(R.id.svVector);
 		// Needed to make the SurfaceView background transparent
 		svAccelerometer.setZOrderOnTop(true);
@@ -89,7 +93,7 @@ public class AccelerometerControl extends BluetoothActivity implements SensorEve
 		enabled = false;
 		lastX = 0;
 		lastY = 0;
-		accJitterMargin = 0.1f;
+		accNoise = 0.1f;
 		moveLeft = 0;
 		moveRight = 0;
 
@@ -118,19 +122,26 @@ public class AccelerometerControl extends BluetoothActivity implements SensorEve
 	{
 		float x = event.values[0];
 		float y = event.values[1];
+		float z = event.values[2];
 
 		// Some accelerometer sensors can change very often for no reason
 		boolean change = false;
 
-		if(Math.abs(lastX - x) > accJitterMargin)
+		if(Math.abs(lastX - x) > accNoise)
 		{
 			lastX = x;
 			change = true;
 		}
 
-		if(Math.abs(lastY - y) > accJitterMargin)
+		if(Math.abs(lastY - y) > accNoise)
 		{
 			lastY = y;
+			change = true;
+		}
+		
+		if(Math.abs(lastZ - z) > accNoise)
+		{
+			lastZ = z - 9.81f;
 			change = true;
 		}
 
@@ -143,9 +154,10 @@ public class AccelerometerControl extends BluetoothActivity implements SensorEve
 		// Show accelerator sensor values
 		tvAccX.setText("X: " + String.format("%.02f", lastX));
 		tvAccY.setText("Y: " + String.format("%.02f", lastY));
-
+		tvAccZ.setText("Z: " + String.format("%.02f", (lastZ)));
+		
 		// Do now allow higher acceleration values than 5 or lower than -5
-		if(lastX > 5)
+		/*if(lastX > 5)
 		{
 			lastX = 5;
 		}
@@ -161,7 +173,7 @@ public class AccelerometerControl extends BluetoothActivity implements SensorEve
 		else if(lastY < -5)
 		{
 			lastY = -5;
-		}
+		}*/
 
 		// Only change speed by multiples of 5
 		moveLeft = (int) (-5 * (Math.round(100 * lastY / 5) / 5) + (-5 * (Math.round(100 * lastX / 5) / 5)));
@@ -187,15 +199,15 @@ public class AccelerometerControl extends BluetoothActivity implements SensorEve
 		}
 
 		// Show wheel speeds
-		tvMoveLeft.setText("L: " + Integer.toString(moveLeft));
-		tvMoveRight.setText("R: " + Integer.toString(moveRight));
-
+		tvMoveX.setText("L: " + Integer.toString(moveLeft));
+		tvMoveY.setText("R: " + Integer.toString(moveRight));
+		tvMoveZ.setText("U: " +  String.format("%.02f", (lastZ)));
 		svAccelerometer.setVector(lastX, lastY);
 
 		// Send data to robot
 		if(enabled)
 		{
-			write("s," + moveLeft + "," + moveRight);
+			write("d:" + moveLeft + "," + moveRight);
 		}
 		else
 		{

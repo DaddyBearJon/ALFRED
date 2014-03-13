@@ -111,31 +111,11 @@ public class TouchControl extends BluetoothActivity implements OnTouchListener, 
 
 			drawJoystick(event.getX(), event.getY());
 
-	/*		moveLeft = touchY + touchX;
-			moveRight = touchY - touchX;
-
-			if(moveLeft > 100)
-			{
-				moveLeft = 100;
-			}
-			else if(moveLeft < -100)
-			{
-				moveLeft = -100;
-			}
-
-			if(moveRight > 100)
-			{
-				moveRight = 100;
-			}
-			else if(moveRight < -100)
-			{
-				moveRight = -100;
-			}
 
 			if(running)
 			{
-				write("s," + moveLeft + "," + moveRight);
-			} */
+				write("d:" + Degrees);
+			} 
 			break;
 		}
 		tvTouchX.setText("X: " + touchX);
